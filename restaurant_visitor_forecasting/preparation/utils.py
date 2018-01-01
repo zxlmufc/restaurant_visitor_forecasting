@@ -22,18 +22,25 @@ def read_zip(zip_dir):
             return pd.read_csv(myfile)
 
 
-def save_pickle(df,name):
+def save_pickle(df, name):
     cache_dir = config.cache_dir
     joblib.dump(df, os.path.join(cache_dir, name))
+    
+    print("=" * 40 + " SAVING DATA " + "=" * 40)
     print("Saving file object to: {}".format(os.path.abspath(os.path.join(cache_dir, name))))
+    print("{} is of shape: {}\n".format(name, df.shape))
+    print("Column names: {}".format(", ".join(list(df.columns))))
+    print("=" * 40 + " SAVING DONE " + "=" * 40)
 
 
-def laod_pickle(file_name, default_dir=None):
+def load_pickle(file_name, default_dir=None):
     default_dir = config.cache_dir if \
         default_dir is None else default_dir
     out = joblib.load(os.path.join(default_dir, file_name))
+    print("=" * 40 + " LAODING DATA " + "=" * 40)
     pprint(out.head(5))
-    print("\n{} is of shape: {}".format(file_name, out.shape))
+    print("\n{} is of shape: {}\n".format(file_name, out.shape))
+    print("=" * 40 + " LAODING DONE " + "=" * 40)
     return out
 
 
